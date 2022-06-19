@@ -9,8 +9,8 @@
 #define DHT_SENSOR_TYPE DHT22
 #define pinAir 33 //Pin Sensor Water Level
 
-int nilai = 0; // Menyimpan data sensor di Variable Nilai
-int pinSensor = 5; //flame
+int nilai = 0; 
+int pinSensor = 5; 
 int ledmerah = 15;
 int ledhijau = 2;
 int buzzer = 4;
@@ -20,19 +20,16 @@ int nilaiApi = 0;
 int kondisi = 0;
 
 
-const char* ssid = "kanhida";
-const char* password = "10121989";
-const char* host = "192.168.1.11";
+const char* ssid = "[yout wifi name]";
+const char* password = "[wifi password]";
+const char* host = "[local database ip]";
 
-#define BOTtoken "5246205503:AAFmK43w_LzQuzWgnXCJSHDpGZUROu88MQY"
-#define CHAT_ID "954152837"
+#define BOTtoken "[bot token from BOT Father Telegram]"
+#define CHAT_ID "[chat id / receiver]"
 WiFiClientSecure client;
 UniversalTelegramBot bot(BOTtoken, client);
 
 DHT dht_sensor(DHT_SENSOR_PIN, DHT_SENSOR_TYPE);
-
-//char server[] = "192.168.1.12";
-//IPAddress ip(192, 168, 1, 177);
 
 void setup() {
   Serial.begin(9600);
@@ -63,12 +60,8 @@ void setup() {
 }
 
 void loop() {
-  //String kondisi = "Aman";
-  // read humidity
   float humi = dht_sensor.readHumidity();
-  // read temperature in Celsius
   float tempC = dht_sensor.readTemperature();
-  // read temperature in Fahrenheit
   float tempF = dht_sensor.readTemperature(true);
 
   //fire
@@ -88,11 +81,6 @@ void loop() {
   Serial.print("Ketinggian Air :" );
   Serial.println(ketinggian);
 
-
-  // check whether the reading is successful or not
-//  if ( isnan(tempC) || isnan(tempF) || isnan(humi)) {
-//    Serial.println("Failed to read from DHT sensor!");
-//  }
   if (tempC > 32) {
     Serial.println("TERDETEKSI SUHU TINGGI");
     digitalWrite(ledmerah, HIGH);
